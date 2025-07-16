@@ -1,0 +1,1 @@
+export const projectUpdateEvent = new Event("projectUpdate");
