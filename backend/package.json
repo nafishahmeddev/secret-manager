@@ -2,7 +2,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "bun run --watch --env-file=.env src/main.ts",
-    "start": "node --env-file=.env dist/main.js"
+    "start": "bun run --env-file=.env src/main.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
