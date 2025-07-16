@@ -5,7 +5,10 @@ const router = Router({
 });
 router.get("/:key", async (req, res) => {
   const { key } = req.params;
-  const project = await Project.findByPk(key);
+  const project = await Project.findOne({
+    where: { key },
+    attributes: ["secrets"],
+  })
   if (project) {
     const secrets = project.secrets || {};
     res.json({

@@ -36,7 +36,7 @@ Project.init({
     type: sequelize.Sequelize.STRING,
     allowNull: false,
     unique: true, // Assuming 'key' should be unique across projects
-    defaultValue: () => generateRandomKey(), // Generate random key if not provided
+    defaultValue: () => generateRandomKey(60), // Generate random key if not provided
   },
   name: {
     type: sequelize.Sequelize.STRING,

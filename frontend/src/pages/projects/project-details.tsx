@@ -6,6 +6,7 @@ import { useMutation, useQueries } from "@tanstack/react-query";
 import z from "zod";
 import AdminProjectService from "../../services/admin/project";
 import { projectUpdateEvent } from "../../lib/custom-events";
+import { ClipboardIcon } from "@heroicons/react/20/solid";
 
 export default function ProjectDetailsPage() {
   const navigate = useNavigate();
@@ -104,7 +105,33 @@ export default function ProjectDetailsPage() {
         </div>
       </div>
 
+
+
       <section>
+        <div className="mb-6 relative">
+          <h2 className="text-base font-bold text-gray-800 uppercase tracking-wide">Project Key</h2>
+          <div className="relative ">
+            <pre className="mt-2 p-4 bg-gray-100 rounded-lg text-sm text-gray-700">
+              {project.key}
+            </pre>
+            <button
+              className="absolute top-1/2  -translate-y-1/2 right-0 mr-4 text-gray-500 hover:text-gray-700 transition"
+              title="Copy Project Key"
+              onClick={() => {
+                navigator.clipboard.writeText(project.key).then(() => {
+                  alert("Project key copied to clipboard");
+                }).catch(err => {
+                  console.error("Failed to copy project key", err);
+                  alert("Failed to copy project key");
+                });
+              }}
+            >
+              <ClipboardIcon className="w-4 h-4" />
+            </button>
+          </div>
+
+
+        </div>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-base font-bold text-gray-800 uppercase tracking-wide">Secrets</h2>
           <secretsForm.Field name="secrets" mode="array" children={({ pushValue }) => (
@@ -127,7 +154,7 @@ export default function ProjectDetailsPage() {
             <>
               {(state.value).map((_, idx) => (
                 <div
-                  key={idx} 
+                  key={idx}
                   className={`flex items-center gap-3 px-4 py-2 relative transition-colors duration-150
                       ${idx !== 10 ? "border-b border-gray-100" : ""}
                       group hover:bg-[#FFF7E6]`}
