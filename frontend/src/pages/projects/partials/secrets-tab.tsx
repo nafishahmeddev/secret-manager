@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import z from "zod";
 import AdminProjectService from "../../../services/admin/project";
 import { useQuery } from "@tanstack/react-query";
+import EnvUtil from "../../../lib/env";
 
 
 type SecretsTabProps = {
@@ -117,10 +118,18 @@ export default function SecretsTab({ project }: SecretsTabProps) {
             <button
               className="flex items-center gap-2   text-[#FF9900] rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
               onClick={() => {
-                const key = prompt("Enter secret key");
-                if (key) {
-                  pushValue({ key, value: "" });
+                const data = prompt("Enter secret key");
+                const parsedData = EnvUtil.parseEnvString(data || "");
+                if (!parsedData) {
+                  alert("Invalid format. Use KEY=VALUE format.");
+                  return;
                 }
+                Object.entries(parsedData).forEach(([key, value]) => {
+                  if (state.value.some(secret => secret.key === key)) {
+                    return;
+                  }
+                  pushValue({ key, value });
+                });
               }}
             >
               <PlusIcon className="w-4 h-4" />
