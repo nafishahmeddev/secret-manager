@@ -6,7 +6,7 @@ export default class AdminProjectService{
     const response = await ApiRequest.get('/api/v1/admin/projects');
     return response.data;
   }
-  static async getProjectByKey(key: string): Promise<ApiResponse<Project>> {
+  static async getProjectById(key: string): Promise<ApiResponse<Project>> {
     const response = await ApiRequest.get(`/api/v1/admin/projects/${key}`);
     return response.data;
   }
@@ -30,7 +30,7 @@ export default class AdminProjectService{
 
 
   /// Secrets Management
-  static async getSecretsByProjectKey(key: string): Promise<ApiResponse<Record<string, string>>> {
+  static async getSecretsByProjectId(key: string): Promise<ApiResponse<Record<string, string>>> {
     const response = await ApiRequest.get(`/api/v1/admin/projects/${key}/secrets`);
     return response.data;
   }
@@ -39,4 +39,12 @@ export default class AdminProjectService{
     const response = await ApiRequest.post(`/api/v1/admin/projects/${key}/secrets`, secrets);
     return response.data;
   }
+
+  //api keys
+  static async createApiSecret(projectId: string): Promise<ApiResponse<void>> {
+    const response = await ApiRequest.post(`/api/v1/admin/projects/${projectId}/regenerate-api-key`);
+    return response.data;
+  }
+
 }
+

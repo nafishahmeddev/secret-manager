@@ -1,5 +1,6 @@
 import { Project } from "@app/db";
 import { Router } from "express";
+import bcrypt from "bcrypt";
 const router = Router({
   mergeParams: true,
 });
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
       message: "Project name is required",
     });
   }
-  const project = await Project.create({ name, description });
+  const project = await Project.create({ name, description});
   res.status(201).json({
     code: "SUCCESS",
     message: `Project ${project.id} created successfully`,
@@ -32,15 +33,15 @@ router.post("/", async (req, res) => {
 });
 
 
-//get project by key
-router.get("/:key", async (req, res) => {
-  const { key } = req.params;
-  const project = await Project.findByPk(key);
+//get project by id
+router.get("/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const project = await Project.findByPk(_id);
   if (project) {
     res.json({
       code: "SUCCESS",
-      message: `Project ${key} fetched successfully`,
-      result: {...project.toJSON(), secrets:undefined}, // Convert to JSON to avoid circular references
+      message: `Project ${_id} fetched successfully`,
+      result: { ...project.toJSON(), secrets: undefined }, // Convert to JSON to avoid circular references
     });
   } else {
     res.status(404).json({
@@ -53,10 +54,10 @@ router.get("/:key", async (req, res) => {
 
 
 //update project
-router.put("/:key", async (req, res) => {
-  const { key } = req.params;
+router.put("/:_id", async (req, res) => {
+  const { _id } = req.params;
   const { name, description } = req.body;
-  const project = await Project.findByPk(key);
+  const project = await Project.findByPk(_id);
   if (!project) {
     return res.status(404).json({
       code: "ERROR",
@@ -68,19 +69,19 @@ router.put("/:key", async (req, res) => {
   await project.save();
   res.status(200).json({
     code: "SUCCESS",
-    message: `Project ${key} updated successfully`,
-    result: {...project.toJSON(), secrets:undefined},
+    message: `Project ${_id} updated successfully`,
+    result: { ...project.toJSON(), secrets: undefined },
   });
 });
 
-router.delete("/:key", async (req, res) => {
-  const { key } = req.params;
-  const project = await Project.findByPk(key);
+router.delete("/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const project = await Project.findByPk(_id);
   if (project) {
     await project.destroy();
     res.status(200).json({
       code: "SUCCESS",
-      message: `Project ${key} deleted successfully`,
+      message: `Project ${_id} deleted successfully`,
       result: null,
     });
   } else {
@@ -92,14 +93,14 @@ router.delete("/:key", async (req, res) => {
 });
 
 //secrets routes
-//get secrets by project key
-router.get("/:key/secrets", async (req, res) => {
-  const { key } = req.params;
-  const project = await Project.findByPk(key);
+//get secrets by project id
+router.get("/:_id/secrets", async (req, res) => {
+  const { _id } = req.params;
+  const project = await Project.findByPk(_id);
   if (project) {
     res.json({
       code: "SUCCESS",
-      message: `Secrets for project ${key} fetched successfully`,
+      message: `Secrets for project ${_id} fetched successfully`,
       result: project.secrets || {},
     });
   } else {
@@ -111,8 +112,8 @@ router.get("/:key/secrets", async (req, res) => {
 });
 
 //update secrets of a project
-router.post("/:key/secrets", async (req, res) => {
-  const { key } = req.params;
+router.post("/:_id/secrets", async (req, res) => {
+  const { _id } = req.params;
   const value: Record<string, string> = req.body;
   if (!value || typeof value !== 'object') {
     return res.status(400).json({
@@ -120,7 +121,7 @@ router.post("/:key/secrets", async (req, res) => {
       message: "Invalid secrets format",
     });
   }
-  const project = await Project.findByPk(key);
+  const project = await Project.findByPk(_id);
   if (!project) {
     return res.status(404).json({
       code: "ERROR",
@@ -132,10 +133,30 @@ router.post("/:key/secrets", async (req, res) => {
   await project.save();
   res.status(201).json({
     code: "SUCCESS",
-    message: `Secrets for project ${key} updated successfully`,
+    message: `Secrets for project ${_id} updated successfully`,
     result: project.secrets,
   });
 });
 
+//create api key for project
+router.post("/:_id/regenerate-api-key", async (req, res) => {
+  const { _id } = req.params;
+  const project = await Project.findByPk(_id);
+  if (!project) {
+    return res.status(404).json({
+      code: "ERROR",
+      message: "Project not found",
+    });
+  }
+
+  await project.generateApiSecret(); // Call the method to generate a new API key
+
+  await project.save();
+  res.status(201).json({
+    code: "SUCCESS",
+    message: `API key for project ${_id} created successfully`,
+    result: project
+  });
+});
 
 export default router;

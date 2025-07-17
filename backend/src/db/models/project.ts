@@ -1,20 +1,56 @@
-import { Model, Optional } from 'sequelize';
+import { Association, Model, NonAttribute, Optional } from 'sequelize';
+import bcrypt from 'bcrypt';
 import sequelize from '../sequelize';
+import EncryptionUtils from '@app/utils/encryption';
+const API_ENCRYPTION_KEY = String(process.env.API_ENCRYPTION_KEY);
 type ProjectAttributes = {
-  id: string; // UUIDs are typically represented as strings
-  key: string; // Assuming 'key' is a unique identifier for the project
+  id: string;
+  key: string;
   name: string;
+  apiSecret: string;
   description?: string;
   secrets?: Record<string, string>;
-}
-type ProjectCreationAttributes = Optional<ProjectAttributes, 'id' | 'description' | 'secrets' | 'key'>;
 
+  generateApiSecret?: () => Promise<void>;
+  verifyApiSecret?: (apiSecret: string) => Promise<boolean>;
+}
+type ProjectCreationAttributes = Optional<ProjectAttributes, 'id' | 'description' | 'secrets' | 'key' | 'apiSecret' | 'generateApiSecret' | 'verifyApiSecret'>;
+
+interface UserInstanceMethods {
+  generateApiSecret(): string;
+}
 class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   declare id: string;
-  declare key: string; // Assuming 'key' is a unique identifier for the project
+  declare key: string;
+  declare apiSecret: string
   declare name: string;
   declare description?: string;
-  declare secrets?: Record<string, string>; // Assuming secrets is a JSON object
+  declare secrets?: Record<string, string>;
+
+
+  async generateApiSecret(): Promise<void> {
+    this.apiSecret = await EncryptionUtils.encrypt(JSON.stringify({
+      id: this.id,
+      key: this.key,
+      timestamp: Date.now(),
+    }), API_ENCRYPTION_KEY);
+  }
+
+  async verifyApiSecret(apiSecret: string): Promise<{ id: string; key: string; } | false> {
+    try {
+      const decrypted = await EncryptionUtils.decrypt(apiSecret, API_ENCRYPTION_KEY);
+      const data = JSON.parse(decrypted);
+      if (data.id !== this.id || data.key !== this.key) {
+        throw new Error("Invalid Api Secret");
+      }
+      return data as { id: string; key: string; };
+    } catch (error) {
+      throw new Error("Invalid Api Secret");
+    }
+  }
+
+
+
 }
 
 function generateRandomKey(length = 10) {
@@ -36,7 +72,12 @@ Project.init({
     type: sequelize.Sequelize.STRING,
     allowNull: false,
     unique: true, // Assuming 'key' should be unique across projects
-    defaultValue: () => generateRandomKey(60), // Generate random key if not provided
+    defaultValue: () => generateRandomKey(32), // Generate random key if not provided
+  },
+  apiSecret: {
+    type: sequelize.Sequelize.STRING,
+    allowNull: false,
+    unique: true,
   },
   name: {
     type: sequelize.Sequelize.STRING,
@@ -54,6 +95,13 @@ Project.init({
 }, {
   sequelize,
   modelName: 'Project',
+  hooks: {
+    beforeValidate: async function (project) {
+      if (project.isNewRecord) {
+        await project.generateApiSecret();
+      }
+    }
+  }
 });
 
 

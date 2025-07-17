@@ -9,7 +9,10 @@ declare global {
     }
     interface Response {
       locals: {
-        // User information, if authenticated
+        project?: {
+          id: string;
+          key: string;
+        }; // Attach project data to response locals
       };
     }
   }

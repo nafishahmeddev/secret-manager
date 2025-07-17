@@ -13,7 +13,7 @@ export default function ProjectFormPage() {
     queries: [
       {
         queryKey: ["project", projectId],
-        queryFn: () => AdminProjectService.getProjectByKey(projectId || "").then(res => res.result),
+        queryFn: () => AdminProjectService.getProjectById(projectId || "").then(res => res.result),
         enabled: !!projectId,
       },
     ],
