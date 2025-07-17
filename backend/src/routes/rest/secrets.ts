@@ -32,7 +32,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
   // Middleware logic here
   next();
 };
-router.get("/:key", authenticate, async (req, res) => {
+router.post("/:key", authenticate, async (req, res) => {
   const { key } = req.params;
   if (!key) {
     return res.status(400).json({
