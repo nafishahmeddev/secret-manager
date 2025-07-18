@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "node ./env.js && source /tmp/env.sh && rm -f /tmp/env.sh && node main.js"
+    "start": "./startup"
   },
   "author": "",
   "license": "ISC",

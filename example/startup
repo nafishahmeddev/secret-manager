@@ -1,0 +1,21 @@
+#!/bin/bash
+
+read -sp "Enter your API key: " api_key
+echo
+
+response=$(curl -s -X POST "http://nafish.me:4060/api/v1/rest/secrets/A0btZ4qMR4NUDYU6m5VOB6gV9QFdsQD1" \
+  -H "x-api-key: $api_key")
+
+if ! echo "$response" | jq -e '.result' >/dev/null; then
+  echo "Error: Invalid response or missing 'result'"
+  echo "$response"
+  exit 1
+fi
+
+eval "$(echo "$response" | jq -r '.result | to_entries[] | @sh "export \(.key)=\(.value)"')"
+
+echo "Environment variables loaded into current shell session."
+
+pm2 start ecosystem.config.js
+
+
