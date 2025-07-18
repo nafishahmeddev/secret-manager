@@ -13,8 +13,7 @@ router.post("/", async (req, res) => {
       name: {
         [Op.like]: `%${search}%`
       }
-    },
-    limit: 20
+    }
   });
   res.json({
     code: "SUCCESS",
