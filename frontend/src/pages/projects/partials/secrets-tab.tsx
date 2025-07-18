@@ -52,11 +52,11 @@ export default function SecretsTab({ project }: SecretsTabProps) {
     secretsForm.reset();
   }, [project, secretsForm]);
   return (
-    <section>
+    <section className="pt-4">
 
       <secretsForm.Field name="secrets" mode="array" children={({ removeValue, state, pushValue }) => (
         <>
-          <div className="border-1 border-gray-200 rounded-lg bg-white overflow-hidden">
+          <div className="">
             {(state.value).map((_, idx: number) => (
               <div
                 key={idx}
@@ -114,7 +114,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
 
 
           </div>
-          <div className="flex justify-end mt-2 gap-4">
+          <div className="flex justify-end mt-2 gap-4 px-8">
             <button
               className="flex items-center gap-2   text-primary-600 rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
               onClick={() => {
@@ -157,7 +157,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
         </>
       )} />
 
-      <div className="flex justify-end mt-8">
+      <div className="flex justify-end p-8">
         <secretsForm.Subscribe children={({ isValid, isSubmitting, canSubmit }) => (
           <>
             <button onClick={secretsForm.handleSubmit} className="px-6 cursor-pointer py-2 bg-primary-600 text-white font-semibold rounded hover:bg-primary-700 transition shadow text-sm disabled:opacity-50" disabled={!isValid || isSubmitting || !canSubmit}>

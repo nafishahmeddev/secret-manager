@@ -1,18 +1,46 @@
 export default function HomePage() {
-
   return (
-    <div className=" px-8 py-8">
-      <section className="bg-white border border-gray-200 rounded-lg shadow-md  px-8 md:px-24 py-20 flex flex-col items-start">
-        <h1 className="text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-          Welcome to Secret Manager
-        </h1>
-        <p className="text-2xl text-gray-600 mb-10 max-w-4xl leading-relaxed">
-          Securely store, manage, and access your secrets with ease. Your privacy and security are our top priorities.
-        </p>
-        <button className="px-10 py-4 text-lg font-semibold text-white bg-gradient-to-r bg-primary-600 hover:bg-primary-700 shadow transition">
+    <div className="bg-gray-100 min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-primary-600 text-white py-20 px-4 text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome to Your Website</h1>
+        <p className="text-lg mb-6">This is a simple homepage with a hero section and some content.</p>
+        <button className="bg-white text-primary-600 font-semibold px-6 py-2 rounded shadow hover:bg-primary-50">
           Get Started
         </button>
       </section>
+
+      {/* Content Section 1 */}
+      <section className="max-w-4xl mx-auto py-12 px-4">
+        <h2 className="text-2xl font-bold mb-4">Our Features</h2>
+        <p className="text-gray-700 mb-6">
+          Discover the amazing features we offer to help you succeed. Our platform is designed to be user-friendly and efficient.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="font-semibold mb-2">Feature One</h3>
+            <p className="text-gray-600">Description of feature one.</p>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="font-semibold mb-2">Feature Two</h3>
+            <p className="text-gray-600">Description of feature two.</p>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="font-semibold mb-2">Feature Three</h3>
+            <p className="text-gray-600">Description of feature three.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Section 2 */}
+      <section className="bg-white py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-4">About Us</h2>
+          <p className="text-gray-700">
+            We are committed to providing the best service possible. Our team is passionate and dedicated to your success.
+          </p>
+        </div>
+      </section>
     </div>
-  )
+  );
 }

@@ -48,5 +48,5 @@
 }
 
 body {
-  @apply text-base font-sans bg-gray-100;
+  @apply text-base font-sans bg-stone-100;
 }

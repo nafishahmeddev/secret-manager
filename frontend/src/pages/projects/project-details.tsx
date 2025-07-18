@@ -7,7 +7,6 @@ import { projectUpdateEvent } from "../../lib/custom-events";
 import SecretsTab from "./partials/secrets-tab.tsx";
 import SettingsTab from "./partials/settings-tab.tsx";
 
-
 export default function ProjectDetailsPage() {
   const navigate = useNavigate();
   const { projectId } = useParams();
@@ -16,7 +15,7 @@ export default function ProjectDetailsPage() {
     queryFn: () => AdminProjectService.getProjectById(projectId || "").then(res => res.result),
     enabled: !!projectId,
     initialData: null,
-  })
+  });
 
   const deleteMutation = useMutation({
     mutationKey: ["deleteProject", projectId],
@@ -30,8 +29,6 @@ export default function ProjectDetailsPage() {
     }),
   });
 
-
-
   const [activeTab, setActiveTab] = useState<"secrets" | "settings">("secrets");
 
   if (!project) {
@@ -39,66 +36,82 @@ export default function ProjectDetailsPage() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-200 p-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900 tracking-tight">{project.name}</h1>
-          <p className="text-gray-500 mt-1 text-sm">{project.description}</p>
+    <div className="">
+      <div className=" mx-auto">
+        {/* Facebook-like header */}
+        <div className="rounded-t-xl shadow bg-primary-50/50">
+            <div className="relative  rounded-t-xl px-8 pt-8 pb-4 ">
+              <div className="flex items-start gap-5 w-full">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-3xl font-bold text-gray-900 break-words">{project.name}</h1>
+                {project.description && (
+                <p className="text-gray-600 mt-2 text-base break-words whitespace-pre-line max-h-24 overflow-y-auto">
+                  {project.description}
+                </p>
+                )}
+              </div>
+              {/* Actions */}
+              <div className="flex gap-2">
+                <Link
+                className="p-2 rounded hover:bg-primary-50 transition"
+                title="Edit Project"
+                to={`/projects/${project.id}/edit`}
+                >
+                <PencilIcon className="w-5 h-5 text-primary-600" />
+                </Link>
+                <button
+                className="p-2 rounded hover:bg-red-50 transition"
+                title="Delete Project"
+                onClick={() => {
+                  if (
+                  window.confirm(
+                    "Are you sure you want to delete this project? This action cannot be undone."
+                  )
+                  ) {
+                  deleteMutation.mutate();
+                  }
+                }}
+                >
+                <TrashIcon className="w-5 h-5 text-red-500" />
+                </button>
+              </div>
+              </div>
+            </div>
+    
+          {/* Tabs */}
+          <div className="flex border-b border-gray-200 px-8">
+            <button
+              className={`relative px-4 py-3 text-base font-semibold focus:outline-none transition-colors cursor-pointer
+                ${activeTab === "secrets"
+                  ? "text-primary-600 border-b-2 border-primary-600"
+                  : "text-gray-600 hover:text-primary-600"}
+              `}
+              onClick={() => setActiveTab("secrets")}
+            >
+              Secrets
+            </button>
+            <button
+              className={`relative px-4 py-3 text-base font-semibold focus:outline-none transition-colors ml-2 cursor-pointer
+                ${activeTab === "settings"
+                  ? "text-primary-600 border-b-2 border-primary-600"
+                  : "text-gray-600 hover:text-primary-600"}
+              `}
+              onClick={() => setActiveTab("settings")}
+            >
+              Settings
+            </button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Link className="p-2 rounded hover:bg-gray-100 transition" title="Edit Project" to={`/projects/${project.id}/edit`}>
-            <PencilIcon className="w-5 h-5 text-gray-500" />
-          </Link>
-          <button className="p-2 rounded hover:bg-gray-100 transition" title="Delete Project" onClick={() => {
-            if (window.confirm("Are you sure you want to delete this project? This action cannot be undone.")) {
-              deleteMutation.mutate();
-            }
-          }}>
-            <TrashIcon className="w-5 h-5 text-gray-500" />
-          </button>
-        </div>
-      </div>
-
-      {/* Classic Tabs with bottom border indicator */}
-      <div className="flex border-b border-gray-200 mb-8">
-        <button
-          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors cursor-pointer
-            ${activeTab === "secrets"
-              ? "text-primary-600 border-b-2 border-primary-600 bg-white"
-              : "text-gray-500 hover:text-primary-600"}
-          `}
-          style={{ minWidth: 110 }}
-          onClick={() => setActiveTab("secrets")}
-        >
-          Secrets
+        {/* Tab Content */}
+        <div className="bg-white rounded-b-xl shadow">
           {activeTab === "secrets" && (
-            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-primary-600 rounded-t"></span>
+            <SecretsTab project={project} refetch={refetch} />
           )}
-        </button>
-        <button
-          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors ml-2 cursor-pointer
-            ${activeTab === "settings"
-              ? "text-primary-600 border-b-2 border-primary-600 bg-white"
-              : "text-gray-500 hover:text-primary-600"}
-          `}
-          style={{ minWidth: 110 }}
-          onClick={() => setActiveTab("settings")}
-        >
-          Settings
           {activeTab === "settings" && (
-            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-primary-600 rounded-t"></span>
+            <SettingsTab project={project} refetch={refetch} />
           )}
-        </button>
+        </div>
       </div>
-
-      {/* Tab Content */}
-      {activeTab === "secrets" && (
-        <SecretsTab project={project} refetch={refetch} />
-      )}
-
-      {activeTab === "settings" && (
-        <SettingsTab project={project} refetch={refetch} />
-      )}
     </div>
   );
 }

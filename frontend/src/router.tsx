@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         children: [
           {
             path:"",
-            Component: () => <div className="p-10 flex flex-col items-center justify-center h-full">
+            Component: () => <div className="p-10 py-25 flex flex-col items-center justify-center h-full bg-white rounded-xl shadow-md border border-[#dddfe2]">
               <h1 className="text-2xl font-bold text-gray-900">Welcome to the Secret Manager Admin</h1>
               <p className="text-gray-600 mt-2">Select a project from the sidebar to manage its secrets.</p>
               <p className="text-gray-600 mt-2">Or create a new project to get started.</p>

@@ -44,57 +44,72 @@ export default function ProjectFormPage() {
     },
   })
 
-
   useEffect(() => {
     form.reset();
   }, [projectId, project, form]);
 
-
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-200 p-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900 tracking-tight">{projectId ? "Edit Project" : "New Project"}</h1>
-          <p className="text-gray-500 mt-1 text-sm">Please fill out the form below to {projectId ? "update" : "create"} a project.</p>
+    <div >
+      <div className="w-full  bg-white rounded-xl shadow-md border border-[#dddfe2] p-8">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-primary-600 tracking-tight">{projectId ? "Edit Project" : "New Project"}</h1>
+            <p className="text-gray-600 mt-1 text-base">Please fill out the form below to {projectId ? "update" : "create"} a project.</p>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <form.Field name="name" children={({ state, handleChange }) => (
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Project Name</label>
-            <input type="text" value={state.value} onChange={e => handleChange(e.target.value)} className="border border-gray-300 rounded-md p-2 w-full" />
-            {state.meta.errors && <p className="text-red-500 text-sm mt-1">{state.meta.errors.join(", ")}</p>}
-          </div>
-        )} />
+        <div>
+          <form.Field name="name" children={({ state, handleChange }) => (
+            <div className="mb-6">
+              <label className="block text-base font-semibold text-gray-800 mb-2">Project Name</label>
+              <input
+                type="text"
+                value={state.value}
+                onChange={e => handleChange(e.target.value)}
+                className="border border-[#ccd0d5] rounded-lg p-3 w-full ] focus:outline-none focus:ring-2 focus:ring-primary-600 text-gray-900"
+                placeholder="Enter project name"
+              />
+              {state.meta.errors && <p className="text-red-500 text-sm mt-1">{state.meta.errors.join(", ")}</p>}
+            </div>
+          )} />
 
-        <form.Field name="description" children={({ state, handleChange }) => (
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-            <textarea value={state.value} onChange={e => handleChange(e.target.value)} className="border border-gray-300 rounded-md p-2 w-full h-24" />
-            {state.meta.errors && <p className="text-red-500 text-sm mt-1">{state.meta.errors.join(", ")}</p>}
-          </div>
-        )} />
-      </div>
-
-      <section>
-        <div className="flex justify-end mt-8">
-          <form.Subscribe children={({ isValid, isSubmitting, canSubmit }) => (
-            <>
-              <button
-                type="button"
-                className="px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded hover:bg-gray-300 transition shadow mr-4 text-sm cursor-pointer"
-                onClick={() => navigate(-1)}
-              >
-                Cancel
-              </button>
-              <button onClick={form.handleSubmit} className="px-6 py-2 bg-primary-600 text-white font-semibold rounded hover:bg-primary-700 transition shadow text-sm disabled:opacity-50 cursor-pointer" disabled={!isValid || isSubmitting || !canSubmit}>
-                Save Changes
-              </button>
-            </>
+          <form.Field name="description" children={({ state, handleChange }) => (
+            <div className="mb-6">
+              <label className="block text-base font-semibold text-gray-800 mb-2">Description</label>
+              <textarea
+                value={state.value}
+                onChange={e => handleChange(e.target.value)}
+                className="border border-[#ccd0d5] rounded-lg p-3 w-full ] focus:outline-none focus:ring-2 focus:ring-primary-600 text-gray-900 h-28"
+                placeholder="Enter project description"
+              />
+              {state.meta.errors && <p className="text-red-500 text-sm mt-1">{state.meta.errors.join(", ")}</p>}
+            </div>
           )} />
         </div>
-      </section>
+
+        <section>
+          <div className="flex justify-end mt-8">
+            <form.Subscribe children={({ isValid, isSubmitting, canSubmit }) => (
+              <>
+                <button
+                  type="button"
+                  className="px-6 py-2 bg-[#e4e6eb] text-gray-800 font-semibold rounded-lg hover:bg-[#d8dadf] transition shadow mr-4 text-base cursor-pointer"
+                  onClick={() => navigate(-1)}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={form.handleSubmit}
+                  className="px-6 py-2 bg-primary-600 text-white font-semibold rounded-lg hover:bg-[#166fe5] transition shadow text-base disabled:opacity-50 cursor-pointer"
+                  disabled={!isValid || isSubmitting || !canSubmit}
+                >
+                  Save Changes
+                </button>
+              </>
+            )} />
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

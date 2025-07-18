@@ -19,7 +19,7 @@ export default function LoginPage() {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-white to-primary-200">
       <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl px-10 py-12 w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
           <div className="bg-primary-600 rounded-full h-16 w-16 flex items-center justify-center mb-4 shadow-lg">
