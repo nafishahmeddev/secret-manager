@@ -9,7 +9,7 @@ export default function HomePage() {
         <p className="text-2xl text-gray-600 mb-10 max-w-4xl leading-relaxed">
           Securely store, manage, and access your secrets with ease. Your privacy and security are our top priorities.
         </p>
-        <button className="px-10 py-4 text-lg font-semibold text-white bg-gradient-to-r from-orange-600 to-yellow-400 rounded hover:from-orange-700 hover:to-yellow-500 shadow transition">
+        <button className="px-10 py-4 text-lg font-semibold text-white bg-gradient-to-r bg-primary-600 hover:bg-primary-700 shadow transition">
           Get Started
         </button>
       </section>

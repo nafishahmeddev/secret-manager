@@ -65,7 +65,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                     group hover:bg-[#FFF7E6]`}
               >
                 {/* Icon for visual interest */}
-                <span className="text-[#FF9900] mr-1">
+                <span className="text-primary-600 mr-1">
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                     <circle cx="8" cy="10" r="3" />
                     <rect x="12" y="8" width="5" height="4" rx="1" />
@@ -78,7 +78,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                       name={name}
                       type="text"
                       value={state.value}
-                      className="flex-1 bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-900 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-[#FF9900] focus:bg-white transition"
+                      className="flex-1 bg-gray-50 border border-gray-200 rounded px-2 py-2 text-gray-900 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
                       readOnly
                     />
                   )}
@@ -92,7 +92,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                       value={state.value}
                       onChange={e => handleChange(e.target.value)}
                       onBlur={handleBlur}
-                      className="flex-1 bg-gray-50 border border-gray-300 rounded px-2 py-1 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#FF9900] focus:bg-white transition"
+                      className="flex-1 bg-gray-50 border border-gray-300 rounded px-2 py-2 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
                     />
                   )}
                 />
@@ -116,7 +116,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
           </div>
           <div className="flex justify-end mt-2 gap-4">
             <button
-              className="flex items-center gap-2   text-[#FF9900] rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
+              className="flex items-center gap-2   text-primary-600 rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
               onClick={() => {
                 const data = prompt("Enter secret key");
                 const parsedData = EnvUtil.parseEnvString(data || "");
@@ -136,7 +136,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
               Import Secrets from plain text
             </button>
             <button
-              className="flex items-center gap-2  text-[#FF9900] rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
+              className="flex items-center gap-2  text-primary-600 rounded transition text-xs font-semibold shadow-none hover:underline cursor-pointer"
               onClick={() => {
                 const key = prompt("Enter secret key");
                 if(state.value.some(secret => secret.key === key)) {
@@ -160,7 +160,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
       <div className="flex justify-end mt-8">
         <secretsForm.Subscribe children={({ isValid, isSubmitting, canSubmit }) => (
           <>
-            <button onClick={secretsForm.handleSubmit} className="px-6 py-2 bg-[#FF9900] text-white font-semibold rounded hover:bg-[#F90] transition shadow text-sm disabled:opacity-50" disabled={!isValid || isSubmitting || !canSubmit}>
+            <button onClick={secretsForm.handleSubmit} className="px-6 cursor-pointer py-2 bg-primary-600 text-white font-semibold rounded hover:bg-primary-700 transition shadow text-sm disabled:opacity-50" disabled={!isValid || isSubmitting || !canSubmit}>
               Save Changes
             </button>
           </>

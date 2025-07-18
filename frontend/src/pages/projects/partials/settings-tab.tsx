@@ -61,7 +61,7 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-base font-bold text-gray-800 uppercase tracking-wide">Api Secret</h2>
           <button
-            className="mt-2 text-[#FF9900] hover:underline bg-transparent px-0 py-0 rounded transition cursor-pointer"
+            className="mt-2 text-primary-600 hover:underline bg-transparent px-0 py-0 rounded transition cursor-pointer"
             onClick={() => {
               if (confirm("Are you sure you want to create a new API key?")) {
                 AdminProjectService.createApiSecret(project.id).then(() => {

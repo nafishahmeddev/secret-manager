@@ -83,12 +83,12 @@ export default function ProjectFormPage() {
             <>
               <button
                 type="button"
-                className="px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded hover:bg-gray-300 transition shadow mr-4 text-sm"
+                className="px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded hover:bg-gray-300 transition shadow mr-4 text-sm cursor-pointer"
                 onClick={() => navigate(-1)}
               >
                 Cancel
               </button>
-              <button onClick={form.handleSubmit} className="px-6 py-2 bg-[#FF9900] text-white font-semibold rounded hover:bg-[#F90] transition shadow text-sm disabled:opacity-50" disabled={!isValid || isSubmitting || !canSubmit}>
+              <button onClick={form.handleSubmit} className="px-6 py-2 bg-primary-600 text-white font-semibold rounded hover:bg-primary-700 transition shadow text-sm disabled:opacity-50 cursor-pointer" disabled={!isValid || isSubmitting || !canSubmit}>
                 Save Changes
               </button>
             </>

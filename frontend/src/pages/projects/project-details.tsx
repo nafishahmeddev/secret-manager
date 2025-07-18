@@ -62,31 +62,31 @@ export default function ProjectDetailsPage() {
       {/* Classic Tabs with bottom border indicator */}
       <div className="flex border-b border-gray-200 mb-8">
         <button
-          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors
+          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors cursor-pointer
             ${activeTab === "secrets"
-              ? "text-[#FF9900] border-b-2 border-[#FF9900] bg-white"
-              : "text-gray-500 hover:text-[#FF9900]"}
+              ? "text-primary-600 border-b-2 border-primary-600 bg-white"
+              : "text-gray-500 hover:text-primary-600"}
           `}
           style={{ minWidth: 110 }}
           onClick={() => setActiveTab("secrets")}
         >
           Secrets
           {activeTab === "secrets" && (
-            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-[#FF9900] rounded-t"></span>
+            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-primary-600 rounded-t"></span>
           )}
         </button>
         <button
-          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors ml-2
+          className={`relative px-6 py-2 text-sm font-semibold focus:outline-none transition-colors ml-2 cursor-pointer
             ${activeTab === "settings"
-              ? "text-[#FF9900] border-b-2 border-[#FF9900] bg-white"
-              : "text-gray-500 hover:text-[#FF9900]"}
+              ? "text-primary-600 border-b-2 border-primary-600 bg-white"
+              : "text-gray-500 hover:text-primary-600"}
           `}
           style={{ minWidth: 110 }}
           onClick={() => setActiveTab("settings")}
         >
           Settings
           {activeTab === "settings" && (
-            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-[#FF9900] rounded-t"></span>
+            <span className="absolute left-0 right-0 -bottom-[2px] h-0.5 bg-primary-600 rounded-t"></span>
           )}
         </button>
       </div>

@@ -28,7 +28,7 @@ export default function ProjectsPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-base font-bold text-white tracking-wide uppercase">Projects</h2>
-            <Link className="flex items-center gap-1 text-[#FF9900] hover:text-white transition text-xs font-semibold" to="/projects/create" >
+            <Link className="flex items-center gap-1 text-primary-600 hover:text-white transition text-xs font-semibold" to="/projects/create" >
               <PlusIcon className="w-4 h-4" />
               New
             </Link>
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
                 to={`/projects/${project.id}/details`}
                 key={project.id}
                 className={`w-full text-left px-4 py-2 rounded transition flex flex-col items-start group ${projectId === project.id
-                    ? "bg-[#37475A] border-l-4 border-[#FF9900] text-white font-bold shadow"
+                    ? "bg-[#37475A] border-l-4 border-primary-600 text-white font-bold shadow"
                     : "hover:bg-[#304050] text-gray-200"
                   }`}
               >
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-10 overflow-y-auto bg-[#F2F3F4]">
+      <main className="flex-1 p-10 overflow-y-auto  max-w-[1100px] mx-auto">
         <Outlet/>
       </main>
     </div>

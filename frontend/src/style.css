@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: oklch(0.95 0.06 211); /* lightest */
-  --color-primary-100: oklch(0.85 0.08 211); /* lighter */
-  --color-primary-200: oklch(0.75 0.1 211); /* light */
-  --color-primary-300: oklch(0.65 0.12 211); /* moderate light */
-  --color-primary-400: oklch(0.55 0.14 211); /* base lighter */
-  --color-primary-500: oklch(0.45 0.16 211); /* base color #2196F3 */
-  --color-primary-600: oklch(0.4 0.18 211); /* moderate dark */
-  --color-primary-700: oklch(0.35 0.2 211); /* darker */
-  --color-primary-800: oklch(0.3 0.22 211); /* much darker */
-  --color-primary-900: oklch(0.25 0.24 211); /* darkest */
-  --color-primary-950: oklch(0.2 0.26 211); /* extremely dark */
+  --color-primary-50: oklch(96.69% 0.016 282.35);
+  --color-primary-100: oklch(92.44% 0.038 285.67);
+  --color-primary-200: oklch(84.87% 0.078 284.64);
+  --color-primary-300: oklch(77.46% 0.118 282.23);
+  --color-primary-400: oklch(70.08% 0.16 280.66);
+  --color-primary-500: oklch(62.7% 0.203 277.86);
+  --color-primary-600: oklch(55.5% 0.247 273.66);
+  --color-primary-700: oklch(48.57% 0.29 267.1);
+  --color-primary-800: oklch(40.95% 0.269 264.19);
+  --color-primary-900: oklch(27.81% 0.183 264.19);
+  --color-primary-950: oklch(21.25% 0.139 264.2);
 
-  --color-success: "#4ade80"
-  --color-error: "#f87171"
+  --color-success: #4ade80;
+  --color-error: #f87171;
 
   --text-xs: 0.625rem; /* 10px */
   --text-xs--line-height: calc(1 / 0.625);
@@ -43,9 +43,8 @@
   --text-9xl: 5rem; /* 80px */
   --text-9xl--line-height: 1;
 
-  --font-sans:
-    "Nunito Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 body {
