@@ -1,5 +1,6 @@
 import { ClipboardIcon } from "@heroicons/react/16/solid";
 import AdminProjectService from "../../../services/admin/project";
+import { useState } from "react";
 
 type SettingsTabProps = {
   project: Project,
@@ -9,6 +10,8 @@ type SettingsTabProps = {
 export default function SettingsTab({ project, refetch }: SettingsTabProps) {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const projectUrl = `${baseUrl}/api/v1/rest/secrets/${project.key}`;
+
+  const [isSecretVisible, setIsSecretVisible] = useState(false);
 
   return (
     <section className="p-8">
@@ -56,11 +59,23 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
 
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">API Secret</h2>
-
+          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide flex-1">
+            API Secret
+          </h2>
+          <button
+            className=" hover:opacity-80 transition mr-11 text-primary-600 text-sm underline cursor-pointer"
+            title="Toggle API Secret Visibility"
+            onClick={() => setIsSecretVisible(!isSecretVisible)}
+          >
+            {isSecretVisible ? (
+              <span>Hide Secret</span>
+            ) : (
+              <span>Show Secret</span>
+            )}
+          </button>
         </div>
         <div className="relative flex items-center mb-3">
-          <pre className="flex-1 bg-gray-50 rounded-md px-3 py-2 text-sm text-gray-800 border border-gray-100 break-all text-wrap">{project.apiSecret}</pre>
+          <pre className="flex-1 bg-gray-50 rounded-md px-3 py-2 text-sm text-gray-800 border border-gray-100 break-all text-wrap">{isSecretVisible ? project.apiSecret : project.apiSecret.split("").fill("•").join("")}</pre>
           <button
             className="ml-2 p-2 rounded-full hover:bg-gray-100 transition"
             title="Copy API Secret"
