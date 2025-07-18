@@ -1,5 +1,5 @@
 import { ClipboardIcon } from "@heroicons/react/16/solid";
-import AdminProjectService from "../../../services/admin/project";
+import AdminProjectService from "@app/services/admin/project";
 import { useState } from "react";
 
 type SettingsTabProps = {

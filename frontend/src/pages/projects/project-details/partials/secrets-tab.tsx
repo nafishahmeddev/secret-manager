@@ -2,9 +2,9 @@ import { PlusIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { useForm } from "@tanstack/react-form";
 import { useEffect } from "react";
 import z from "zod";
-import AdminProjectService from "../../../services/admin/project";
+import AdminProjectService from "@app/services/admin/project";
 import { useQuery } from "@tanstack/react-query";
-import EnvUtil from "../../../lib/env";
+import EnvUtil from "@app/lib/env";
 
 
 type SecretsTabProps = {
@@ -62,7 +62,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                 key={idx}
                 className={`flex items-center gap-3 px-4 py-2 relative transition-colors duration-150
                     ${idx !== 10 ? "border-b border-gray-100" : ""}
-                    group hover:bg-[#FFF7E6]`}
+                    group hover:bg-primary-50`}
               >
                 {/* Icon for visual interest */}
                 <span className="text-primary-600 mr-1">
@@ -78,7 +78,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                       name={name}
                       type="text"
                       value={state.value}
-                      className="flex-1 bg-gray-50 border border-gray-200 rounded px-2 py-2 text-gray-900 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
+                      className="flex-1 bg-gray-50 border border-gray-200 rounded px-2 py-1.5 text-gray-900 font-semibold text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
                       readOnly
                     />
                   )}
@@ -92,7 +92,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                       value={state.value}
                       onChange={e => handleChange(e.target.value)}
                       onBlur={handleBlur}
-                      className="flex-1 bg-gray-50 border border-gray-300 rounded px-2 py-2 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
+                      className="flex-1 bg-gray-50 border border-gray-300 rounded px-2 py-1.5 text-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:bg-white transition"
                     />
                   )}
                 />
