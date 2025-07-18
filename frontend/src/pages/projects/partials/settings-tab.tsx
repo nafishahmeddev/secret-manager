@@ -30,6 +30,33 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
           </button>
         </div>
       </div>
+
+
+      <div className="mb-6">
+        <h2 className="text-base font-bold text-gray-800 uppercase tracking-wide">Project URL</h2>
+        <div className="relative ">
+          <pre className="mt-2 p-4 bg-gray-100 rounded-lg text-sm text-gray-700">
+            {import.meta.env.VITE_BASE_URL}/api/v1/secrets/<span className="text-primary-600 underline">{project.key}</span>
+          </pre>
+          <button
+            className="absolute top-1/2  -translate-y-1/2 right-0 mr-4 text-gray-500 hover:text-gray-700 transition"
+            title="Copy Project URL"
+            onClick={() => {
+              navigator.clipboard.writeText( `${import.meta.env.VITE_BASE_URL}/api/v1/secrets/${project.key}`).then(() => {
+                alert("Project URL copied to clipboard");
+              }).catch(err => {
+                console.error("Failed to copy project URL", err);
+                alert("Failed to copy project URL");
+              });
+            }}
+          >
+            <ClipboardIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+
+
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-base font-bold text-gray-800 uppercase tracking-wide">Api Secret</h2>
@@ -59,11 +86,11 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
             className="absolute top-1/2  -translate-y-1/2 right-0 mr-4 text-gray-500 hover:text-gray-700 transition"
             title="Copy Project Key"
             onClick={() => {
-              navigator.clipboard.writeText(project.key).then(() => {
-                alert("Project key copied to clipboard");
+              navigator.clipboard.writeText(project.apiSecret).then(() => {
+                alert("API secret copied to clipboard");
               }).catch(err => {
-                console.error("Failed to copy project key", err);
-                alert("Failed to copy project key");
+                console.error("Failed to copy API secret", err);
+                alert("Failed to copy API secret");
               });
             }}
           >

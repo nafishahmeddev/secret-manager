@@ -1,10 +1,9 @@
 import { createBrowserRouter, Link, RouterProvider } from "react-router";
 import AppLayout from "./components/AppLayout";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/home.page.tsx";
 import ProjectsPage from "./pages/projects";
 import ProjectDetailsPage from "./pages/projects/project-details";
 import ProjectFormPage from "./pages/projects/project-form";
-
 const router = createBrowserRouter([
   {
     Component: AppLayout,
