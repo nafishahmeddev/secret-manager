@@ -1,9 +1,9 @@
 import { ApiRequest } from "../../lib/axios";
 
-export default class AdminProjectService{
+export default class AdminProjectService {
 
-  static async getAllProjects(): Promise<ApiResponse<Project[]>> {
-    const response = await ApiRequest.get('/api/v1/admin/projects');
+  static async getAllProjects({ search }: { search: string }): Promise<ApiResponse<Project[]>> {
+    const response = await ApiRequest.post('/api/v1/admin/projects', { search });
     return response.data;
   }
   static async getProjectById(key: string): Promise<ApiResponse<Project>> {
@@ -12,10 +12,10 @@ export default class AdminProjectService{
   }
 
   static async createProject(project: { name: string; description?: string }): Promise<ApiResponse<Project>> {
-    const response = await ApiRequest.post('/api/v1/admin/projects', project);
+    const response = await ApiRequest.put('/api/v1/admin/projects', project);
     return response.data;
   }
-    
+
 
   static async updateProject(key: string, project: { name?: string; description?: string }): Promise<ApiResponse<Project>> {
     const response = await ApiRequest.put(`/api/v1/admin/projects/${key}`, project);
@@ -26,7 +26,7 @@ export default class AdminProjectService{
     const response = await ApiRequest.delete(`/api/v1/admin/projects/${key}`);
     return response.data;
   }
-  
+
 
 
   /// Secrets Management

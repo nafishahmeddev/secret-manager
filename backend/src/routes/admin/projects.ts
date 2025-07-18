@@ -1,12 +1,20 @@
 import { Project } from "@app/db";
 import { Router } from "express";
 import bcrypt from "bcrypt";
+import { Op } from "sequelize";
 const router = Router({
   mergeParams: true,
 });
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
+  const { search } = req.body;
   const projects = await Project.findAll({
     attributes: { exclude: ['secrets'] },
+    where: {
+      name: {
+        [Op.like]: `%${search}%`
+      }
+    },
+    limit: 20
   });
   res.json({
     code: "SUCCESS",
@@ -16,7 +24,7 @@ router.get("/", async (req, res) => {
 });
 
 //create project
-router.post("/", async (req, res) => {
+router.put("/", async (req, res) => {
   const { name, description } = req.body;
   if (!name) {
     return res.status(400).json({
