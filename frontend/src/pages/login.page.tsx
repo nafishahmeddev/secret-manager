@@ -42,7 +42,7 @@ export default function LoginPage() {
                   value={state.value}
                   onBlur={handleBlur}
                   onChange={e => handleChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primary-500"
                   placeholder="Enter your email"
                 />
               </div>
@@ -62,7 +62,7 @@ export default function LoginPage() {
                   value={state.value}
                   onBlur={handleBlur}
                   onChange={e => handleChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primary-500"
                   placeholder="Enter your password"
                 />
               </div>
@@ -71,7 +71,7 @@ export default function LoginPage() {
           <form.Subscribe children={({ canSubmit, isSubmitting }) => (
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200"
+              className="w-full bg-primary-600 text-white py-2 rounded hover:bg-primary-700 transition duration-200"
               disabled={!canSubmit || isSubmitting}
             >
               Login
