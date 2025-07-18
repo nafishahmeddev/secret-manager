@@ -1,6 +1,7 @@
 import { ClipboardIcon } from "@heroicons/react/16/solid";
 import AdminProjectService from "@app/services/admin/project";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type SettingsTabProps = {
   project: Project,
@@ -24,9 +25,9 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
             title="Copy Project Key"
             onClick={() => {
               navigator.clipboard.writeText(project.key).then(() => {
-                alert("Project key copied to clipboard");
+                toast.success("Project key copied to clipboard");
               }).catch(() => {
-                alert("Failed to copy project key");
+                toast.error("Failed to copy project key");
               });
             }}
           >
@@ -46,9 +47,9 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
             title="Copy Project URL"
             onClick={() => {
               navigator.clipboard.writeText(projectUrl).then(() => {
-                alert("Project URL copied to clipboard");
+                toast.success("Project URL copied to clipboard");
               }).catch(() => {
-                alert("Failed to copy project URL");
+                toast.error("Failed to copy project URL");
               });
             }}
           >
@@ -81,9 +82,9 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
             title="Copy API Secret"
             onClick={() => {
               navigator.clipboard.writeText(project.apiSecret).then(() => {
-                alert("API secret copied to clipboard");
+                toast.success("API secret copied to clipboard");
               }).catch(() => {
-                alert("Failed to copy API secret");
+                toast.error("Failed to copy API secret");
               });
             }}
           >
@@ -95,10 +96,10 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
           onClick={() => {
             if (confirm("Are you sure you want to create a new API key?")) {
               AdminProjectService.createApiSecret(project.id).then(() => {
-                alert("API key created successfully");
+                toast.success("API key created successfully");
                 refetch?.();
               }).catch(() => {
-                alert("Failed to create API key");
+                toast.error("Failed to create API key");
               });
             }
           }}

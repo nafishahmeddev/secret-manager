@@ -6,6 +6,7 @@ import z from "zod";
 import AdminProjectService from "../../services/admin/project";
 import { projectUpdateEvent } from "../../lib/custom-events";
 import Card from "@app/components/card";
+import toast from "react-hot-toast";
 
 export default function ProjectFormPage() {
   const { projectId } = useParams();
@@ -36,11 +37,10 @@ export default function ProjectFormPage() {
       const req = projectId ? AdminProjectService.updateProject(projectId || "", value) : AdminProjectService.createProject(value);
       return req.then((res) => {
         navigate(`/projects/${res.result.id}/details`);
-        alert("Project updated successfully");
+        toast.success("Project updated successfully");
         window.dispatchEvent(projectUpdateEvent);
-      }).catch(err => {
-        console.error("Failed to update project", err);
-        alert("Failed to update project");
+      }).catch(() => {
+        toast.error("Failed to update project");
       });
     },
   })

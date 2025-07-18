@@ -7,6 +7,7 @@ import { projectUpdateEvent } from "../../../lib/custom-events.ts";
 import SecretsTab from "./partials/secrets-tab.tsx";
 import SettingsTab from "./partials/settings-tab.tsx";
 import Card from "@app/components/card/index.tsx";
+import toast from "react-hot-toast";
 
 export default function ProjectDetailsPage() {
   const navigate = useNavigate();
@@ -21,12 +22,11 @@ export default function ProjectDetailsPage() {
   const deleteMutation = useMutation({
     mutationKey: ["deleteProject", projectId],
     mutationFn: () => AdminProjectService.deleteProject(projectId || "").then(() => {
-      alert("Project deleted successfully");
+      toast.success("Project deleted successfully");
       navigate("/projects");
       window.dispatchEvent(projectUpdateEvent);
-    }).catch(err => {
-      console.error("Failed to delete project", err);
-      alert("Failed to delete project");
+    }).catch(() => {
+      toast.error("Failed to delete project");
     }),
   });
 

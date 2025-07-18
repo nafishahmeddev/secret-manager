@@ -1,5 +1,6 @@
 import AuthApi from "@app/services/auth";
 import { useForm } from "@tanstack/react-form";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const form = useForm({
@@ -12,7 +13,7 @@ export default function LoginPage() {
         await AuthApi.login(value);
         window.location.reload();
       } catch (error) {
-        alert("Login failed. Please check your credentials.");
+        toast.error("Login failed. Please check your credentials.");
         console.error("Login failed:", error);
       }
     },

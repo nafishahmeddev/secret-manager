@@ -5,6 +5,7 @@ import z from "zod";
 import AdminProjectService from "@app/services/admin/project";
 import { useQuery } from "@tanstack/react-query";
 import EnvUtil from "@app/lib/env";
+import toast from "react-hot-toast";
 
 
 type SecretsTabProps = {
@@ -39,10 +40,9 @@ export default function SecretsTab({ project }: SecretsTabProps) {
         return acc;
       }, {} as Record<string, string>);
       return AdminProjectService.updateSecrets(project.id, secretsObject).then(() => {
-        alert("Secrets updated successfully");
-      }).catch(err => {
-        console.error("Failed to update secrets", err);
-        alert("Failed to update secrets");
+        toast.success("Secrets updated successfully");
+      }).catch(() => {
+        toast.error("Failed to update secrets");
       });
     },
   })
@@ -121,7 +121,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
                 const data = prompt("Enter secret key");
                 const parsedData = EnvUtil.parseEnvString(data || "");
                 if (!parsedData) {
-                  alert("Invalid format. Use KEY=VALUE format.");
+                  toast.error("Invalid format. Use KEY=VALUE format.");
                   return;
                 }
                 Object.entries(parsedData).forEach(([key, value]) => {
@@ -140,7 +140,7 @@ export default function SecretsTab({ project }: SecretsTabProps) {
               onClick={() => {
                 const key = prompt("Enter secret key");
                 if(state.value.some(secret => secret.key === key)) {
-                  alert("Secret with this key already exists");
+                  toast.error("Secret with this key already exists");
                   return;
                 }
                 if (key) {
