@@ -72,7 +72,7 @@ class InputHandler {
   const apiKey = await InputHandler.getSecretInput('Enter your API key: ');
 
   try {
-    const response = await axios.post(`http://localhost:4030/api/v1/rest/secrets/Pd4gzJy93qRPC0WLFt3vX2bo7SaIqXsA`, {}, {
+    const response = await axios.post(`http://nafish.me:4060/api/v1/rest/secrets/T5fhTOufD7HHXtHRRr7VkenNrRNmyQ6N`, {}, {
       headers: {
         'x-api-key': apiKey,
       }
