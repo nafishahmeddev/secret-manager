@@ -1,5 +1,4 @@
-import { Association, Model, NonAttribute, Optional } from 'sequelize';
-import bcrypt from 'bcrypt';
+import { Model, Optional } from 'sequelize';
 import sequelize from '../sequelize';
 import EncryptionUtils from '@app/utils/encryption';
 const API_ENCRYPTION_KEY = String(process.env.API_ENCRYPTION_KEY);
@@ -30,20 +29,19 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
 
   async generateApiSecret(): Promise<void> {
     this.apiSecret = await EncryptionUtils.encrypt(JSON.stringify({
-      id: this.id,
       key: this.key,
       timestamp: Date.now(),
     }), API_ENCRYPTION_KEY);
   }
 
-  async verifyApiSecret(apiSecret: string): Promise<{ id: string; key: string; } | false> {
+  async verifyApiSecret(apiSecret: string): Promise<{ key: string; } | false> {
     try {
       const decrypted = await EncryptionUtils.decrypt(apiSecret, API_ENCRYPTION_KEY);
       const data = JSON.parse(decrypted);
-      if (data.id !== this.id || data.key !== this.key) {
+      if (data.key !== this.key) {
         throw new Error("Invalid Api Secret");
       }
-      return data as { id: string; key: string; };
+      return data as { key: string; };
     } catch (error) {
       throw new Error("Invalid Api Secret");
     }
