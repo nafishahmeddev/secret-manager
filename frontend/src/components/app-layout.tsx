@@ -5,7 +5,7 @@ import { Outlet, useLocation, useNavigate } from "react-router";
 const MenuButton = ({ label, to, icon }: { label: string; to: string; icon: React.ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isActive = location.pathname === to;
+  const isActive = to !== "/"  ? location.pathname.startsWith(to)  : location.pathname === to;
 
   return (
     <button
