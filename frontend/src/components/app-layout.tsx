@@ -22,7 +22,7 @@ export default function AppLayout() {
     <div className="min-h-screen flex flex-col ">
       {/* Top Bar */}
       <header className=" bg-white   shadow sticky top-0 z-20">
-        <div className="max-w-5xl m-auto flex items-center justify-between px-10">
+        <div className="max-w-6xl m-auto flex items-center justify-between px-10">
           <div className="flex items-center gap-4">
             <img src="/logo.svg" alt="Logo" className="h-8" />
           </div>

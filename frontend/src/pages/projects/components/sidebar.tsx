@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { useDebounce } from "@uidotdev/usehooks";
+import AdminProjectStore from "@app/store/admin-projects";
 
 export default function ProjectsSidebar() {
   const [keyword, setKeyword] = useState("");
@@ -35,13 +36,13 @@ export default function ProjectsSidebar() {
       <div className="mb-6">
         <div className="flex items-center justify-between pt-6 pb-4 px-6">
           <h2 className="text-lg font-bold tracking-wide">Projects</h2>
-          <Link
-            className="flex items-center gap-1 text-primary-600 hover:bg-[#e7f3ff] px-2 py-1 rounded transition text-xs font-semibold"
-            to="/projects/create"
+          <button
+            className="flex items-center gap-1 text-primary-600 rounded transition text-xs font-semibold cursor-pointer hover:opacity-45"
+            onClick={() => AdminProjectStore.openFormDialog({  })}
           >
             <PlusIcon className="w-4 h-4" />
             New
-          </Link>
+          </button>
         </div>
         <div className="px-6">
           <input
@@ -56,7 +57,7 @@ export default function ProjectsSidebar() {
           <nav className="py-3">
             {projects && projects.length > 0 && projects.map((project) => (
               <Link
-                to={`/projects/${project.id}/details`}
+                to={`/projects/${project.id}`}
                 key={project.id}
                 className={`block px-6 py-2 transition font-medium border-x-2 border-transparent border-b overflow-clip text-ellipsis w-full ${projectId === project.id
                   ? "bg-primary-50 text-primary-600 font-bold border-l-primary-600"

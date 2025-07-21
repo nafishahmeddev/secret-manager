@@ -1,6 +1,6 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import AdminProjectService from "../../../services/admin/project.ts";
 import { projectUpdateEvent } from "../../../lib/custom-events.ts";
@@ -8,6 +8,7 @@ import SecretsTab from "./partials/secrets-tab.tsx";
 import SettingsTab from "./partials/settings-tab.tsx";
 import Card from "@app/components/card/index.tsx";
 import toast from "react-hot-toast";
+import AdminProjectStore from "@app/store/admin-projects.ts";
 
 export default function ProjectDetailsPage() {
   const navigate = useNavigate();
@@ -32,6 +33,17 @@ export default function ProjectDetailsPage() {
 
   const [activeTab, setActiveTab] = useState<"secrets" | "settings">("secrets");
 
+  const handleProjectUpdate = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
+    window.addEventListener("projectUpdate", handleProjectUpdate);
+    return () => {
+      window.removeEventListener("projectUpdate", handleProjectUpdate);
+    };
+  }, [handleProjectUpdate]);
+
   if (!project) {
     return <div className="p-8 text-gray-500">Project not found</div>;
   }
@@ -53,13 +65,13 @@ export default function ProjectDetailsPage() {
             </div>
             {/* Actions */}
             <div className="flex gap-2">
-              <Link
+              <button
+                onClick={() => AdminProjectStore.openFormDialog({ projectId: project.id })}
                 className="p-2 rounded hover:bg-primary-50 transition"
                 title="Edit Project"
-                to={`/projects/${project.id}/edit`}
               >
                 <PencilIcon className="w-5 h-5 text-primary-600" />
-              </Link>
+              </button>
               <button
                 className="p-2 rounded hover:bg-red-50 transition"
                 title="Delete Project"

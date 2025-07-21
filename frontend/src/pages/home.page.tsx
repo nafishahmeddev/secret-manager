@@ -11,7 +11,7 @@ export default function HomePage() {
       </section>
 
       {/* Content Section 1 */}
-      <section className="max-w-5xl mx-auto py-12 px-10">
+      <section className="max-w-6xl mx-auto py-12 px-10">
         <h2 className="text-2xl font-bold mb-4">Our Features</h2>
         <p className="text-gray-700 mb-6">
           Discover the amazing features we offer to help you succeed. Our platform is designed to be user-friendly and efficient.
@@ -34,7 +34,7 @@ export default function HomePage() {
 
       {/* Content Section 2 */}
       <section className="bg-white py-12 px-4">
-        <div className="max-w-5xl px-10 mx-auto">
+        <div className="max-w-6xl px-10 mx-auto">
           <h2 className="text-2xl font-bold mb-4">About Us</h2>
           <p className="text-gray-700">
             We are committed to providing the best service possible. Our team is passionate and dedicated to your success.

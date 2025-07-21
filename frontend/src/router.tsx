@@ -3,7 +3,6 @@ import AppLayout from "./components/app-layout.tsx";
 import HomePage from "./pages/home.page.tsx";
 import ProjectsPage from "./pages/projects";
 import ProjectDetailsPage from "./pages/projects/project-details/index.tsx";
-import ProjectFormPage from "./pages/projects/project-form";
 import Card from "./components/card/index.tsx";
 const router = createBrowserRouter([
   {
@@ -29,16 +28,8 @@ const router = createBrowserRouter([
             </Card>,
           },
           {
-            path: "create",
-            Component: ProjectFormPage,
-          },
-          {
-            path: ":projectId/details",
+            path: ":projectId",
             Component: ProjectDetailsPage,
-          },
-          {
-            path: ":projectId/edit",
-            Component: ProjectFormPage,
           },
         ],
       }
