@@ -4,4 +4,5 @@ declare interface Project {
   apiSecret: string;
   name: string;
   description?: string;
+  allowedIps?: string[];
 }

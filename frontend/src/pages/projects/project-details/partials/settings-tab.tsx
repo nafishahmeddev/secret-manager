@@ -59,6 +59,41 @@ export default function SettingsTab({ project, refetch }: SettingsTabProps) {
       </div>
 
       <div>
+
+        <div className="mb-6">
+          <h2 className="text-xs font-semibold text-gray-600 uppercase mb-2 tracking-wide">IP Whitelist</h2>
+          <form
+            className="flex items-center gap-2"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const input = form.elements.namedItem("ipWhitelist") as HTMLInputElement;
+              const ip = input.value.trim().split(",").map(ip => ip.trim()).filter(Boolean);
+              try {
+                await AdminProjectService.updateProject(project.id, { allowedIps: ip });
+                toast.success("IP whitelist updated");
+                refetch?.();
+              } catch {
+                toast.error("Failed to update IP whitelist");
+              }
+            }}
+          >
+            <input
+              type="text"
+              name="ipWhitelist"
+              className="flex-1 bg-gray-50 rounded-md px-3 py-2 text-sm text-gray-800 border border-gray-100"
+              placeholder="Enter IP addresses (comma separated) leave empty to remove"
+              defaultValue={project.allowedIps?.join(", ") || ""}
+              autoComplete="off"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-primary-600 text-white rounded-md text-sm font-semibold hover:bg-primary-700 transition"
+            >
+              Save
+            </button>
+          </form>
+        </div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide flex-1">
             API Secret

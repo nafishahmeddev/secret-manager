@@ -9,15 +9,13 @@ type ProjectAttributes = {
   apiSecret: string;
   description?: string;
   secrets?: Record<string, string>;
+  allowedIps?: string[];
 
   generateApiSecret?: () => Promise<void>;
   verifyApiSecret?: (apiSecret: string) => Promise<boolean>;
 }
-type ProjectCreationAttributes = Optional<ProjectAttributes, 'id' | 'description' | 'secrets' | 'key' | 'apiSecret' | 'generateApiSecret' | 'verifyApiSecret'>;
+type ProjectCreationAttributes = Optional<ProjectAttributes, 'id' | 'description' | 'secrets' | 'key' | 'apiSecret' | 'generateApiSecret' | 'verifyApiSecret' | 'allowedIps'>;
 
-interface UserInstanceMethods {
-  generateApiSecret(): string;
-}
 class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   declare id: string;
   declare key: string;
@@ -25,6 +23,7 @@ class Project extends Model<ProjectAttributes, ProjectCreationAttributes> {
   declare name: string;
   declare description?: string;
   declare secrets?: Record<string, string>;
+  declare allowedIps?: string[];
 
 
   async generateApiSecret(): Promise<void> {
@@ -89,7 +88,11 @@ Project.init({
   secrets: {
     type: sequelize.Sequelize.JSONB,
     allowNull: true,
-  }
+  },
+  allowedIps: {
+    type: sequelize.Sequelize.JSON,
+    allowNull: true,
+  },
 }, {
   sequelize,
   modelName: 'Project',

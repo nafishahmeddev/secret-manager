@@ -63,7 +63,7 @@ router.get("/:_id", async (req, res) => {
 //update project
 router.put("/:_id", async (req, res) => {
   const { _id } = req.params;
-  const { name, description } = req.body;
+  const { name, description, allowedIps } = req.body;
   const project = await Project.findByPk(_id);
   if (!project) {
     return res.status(404).json({
@@ -73,6 +73,14 @@ router.put("/:_id", async (req, res) => {
   }
   project.name = name || project.name;
   project.description = description || project.description;
+  if (allowedIps && Array.isArray(allowedIps)) {
+    project.allowedIps = allowedIps;
+  } else {
+    return res.status(400).json({
+      code: "ERROR",
+      message: "Invalid allowedIps format. It should be an array.",
+    });
+  }
   await project.save();
   res.status(200).json({
     code: "SUCCESS",

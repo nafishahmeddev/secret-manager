@@ -17,7 +17,7 @@ export default class AdminProjectService {
   }
 
 
-  static async updateProject(key: string, project: { name?: string; description?: string }): Promise<ApiResponse<Project>> {
+  static async updateProject(key: string, project: { name?: string; description?: string, allowedIps?: string[] }): Promise<ApiResponse<Project>> {
     const response = await ApiRequest.put(`/api/v1/admin/projects/${key}`, project);
     return response.data;
   }
