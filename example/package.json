@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start:dev": "./startup",
-    "start": "./startup_rust --key A0btZ4qMR4NUDYU6m5VOB6gV9QFdsQD1"
+    "start": "./startup_linux --key A0btZ4qMR4NUDYU6m5VOB6gV9QFdsQD1"
   },
   "author": "",
   "license": "ISC",
